@@ -201,7 +201,6 @@ def main():
                     score.score += 1
         bombs = [bomb for bomb in bombs if bomb is not None]
         score.update(screen)
-
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         # 画面の範囲外に出たらリストから削除する
