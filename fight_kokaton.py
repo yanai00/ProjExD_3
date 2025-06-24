@@ -140,6 +140,7 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+
 class Score:
     """
     スコアを表示するクラス
@@ -148,9 +149,9 @@ class Score:
         self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30) # フォントの設定
         self.score = 0 # 初期スコア値
         self.img = self.font.render(f"スコア：{self.score}", True, (0, 0, 255)) # 文字列Surfaceの生成
-        self.rct = self.img.get_rect()
+        self.rct = self.img.get_rect() # 座標呼び出し
         self.rct.center = (100, HEIGHT-50) # 文字列Surfaceの中心座標
-    
+
     def update(self, screen: pg.Surface):
         self.img = self.font.render(f"スコア：{self.score}", True, (0, 0, 255)) # 文字列Surfaceの更新
         screen.blit(self.img, self.rct.center) # 文字列Surfaceを画面に転送
