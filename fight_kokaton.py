@@ -140,10 +140,26 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+class Score:
+    """
+    スコアを表示するクラス
+    """
+    def __init__(self: pg.Surface):
+        self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30) # フォントの設定
+        self.score = 0 # 初期スコア値
+        self.img = self.font.render(f"スコア：{self.score}", True, (0, 0, 255)) # 文字列Surfaceの生成
+        self.rct = self.img.get_rect()
+        self.rct.center = (100, HEIGHT-50) # 文字列Surfaceの中心座標
+    
+    def update(self, screen: pg.Surface):
+        self.img = self.font.render(f"スコア：{self.score}", True, (0, 0, 255)) # 文字列Surfaceの更新
+        screen.blit(self.img, self.rct.center) # 文字列Surfaceを画面に転送
+
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
+    score = Score() # スコアのインスタンス生成
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
     # bomb = Bomb((255, 0, 0), 10)
@@ -180,7 +196,9 @@ def main():
                     beam = None
                     bombs[i] = None
                     bird.change_img(6, screen)
+                    score.score += 1
         bombs = [bomb for bomb in bombs if bomb is not None]
+        score.update(screen)
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
